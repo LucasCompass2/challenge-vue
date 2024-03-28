@@ -6,8 +6,8 @@
     <div class="column">
       <ContactForm />
     </div>
-    
-    
+
+
   </main>
 </template>
 
@@ -31,5 +31,4 @@ export default defineComponent({
   padding: 5rem;
   background-color: var(--black, #000);
 }
-
 </style>

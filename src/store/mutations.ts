@@ -1,1 +1,0 @@
-export const DEFINE_CONTACT = 'DEFINE_CONTACT'

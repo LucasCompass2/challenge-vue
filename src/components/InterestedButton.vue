@@ -9,12 +9,9 @@
             <button v-for="interest in interested" :key="interest"
                 :class="['button', { 'button-select': select === interest }]" @click="selected(interest)">
                 {{ interest }}
-
             </button>
-
         </section>
     </main>
-
 </template>
 
 <script lang="ts">
@@ -37,8 +34,6 @@ export default defineComponent({
             this.$emit('selected', this.interest)
         }
     },
-
-
 })
 </script>
 
@@ -58,7 +53,6 @@ export default defineComponent({
     margin: 0rem 1rem 1rem 0rem;
     width: 10rem;
     padding: 1rem 0rem 1rem 0rem;
-
 }
 
 .button-select {

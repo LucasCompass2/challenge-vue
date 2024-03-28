@@ -1,17 +1,16 @@
 <template>
-    <form class="box" @submit.prevent="sendContact">
-        <!-- <InterestedButton @selected="" /> -->
-        <InterestedButton />
+    <form class="box" @submit.prevent>
+        <InterestedButton @selected="form.interest = $event" />
         <div class="control">
-            <input type="name" class="input" placeholder="Your name">
+            <input v-model="form.name" type="text" class="input" placeholder="Your name" required>
         </div>
         <div class="control">
-            <input type="email" class="input" placeholder="Your email">
+            <input v-model="form.email" type="email" class="input" placeholder="Your email" required>
         </div>
         <div class="control">
-            <input type="message" class="input" placeholder="Your message">
+            <input v-model="form.message" type="text" class="input" placeholder="Your message" required>
         </div>
-        <button class="button" type="submit">
+        <button class="button" @click="sendContact">
             <img src="../assets/image/Send.png" alt="icon Send message">
             Send Message
         </button>
@@ -21,7 +20,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import InterestedButton from "../components/InterestedButton.vue";
-import { mapActions } from "vuex";
+import http from "@/http"
 
 export default defineComponent({
     name: 'ContactForm',
@@ -33,20 +32,21 @@ export default defineComponent({
             form: {
                 name: '',
                 email: '',
-                message: ''
-            }
+                message: '',
+                interest: ''
+            },
         }
     },
     methods: {
-        ...mapActions(['SEND_CONTACT']),
-        sendContact() {
-            this.sendContact(this.form)
-                .then(response => {
+        async sendContact() {
+            await http.post('/contact', this.form)
+                .then((response) => {
                     console.log(response);
                     alert(response.data.msg)
-                }).catch(error => {
-                    console.log(error);
-                    alert(error.response.data.detail[0].msg)
+                })
+                .catch((responseError) => {
+                    console.log(responseError);
+                    alert(responseError.response.data.detail[0].msg)
                 })
         }
     }
